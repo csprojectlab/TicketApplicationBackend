@@ -11,7 +11,7 @@ api.login = (User) =>  async (request, response) => {
     try {
         let user = await User.authenticate(username, password)
         user.dataValues.password = '****'
-        const token = jwt.sign({user}, config.secret, {expiresIn: 10000})
+        const token = jwt.sign({user}, config.secret, {expiresIn: 60*15})   // FOR 15 MINUTES
         response.status(200).json({token: token, user: user});
     } catch (error) {
         response.status(400).json({message: "INVALID USERNAME OF PASSWORD"})
